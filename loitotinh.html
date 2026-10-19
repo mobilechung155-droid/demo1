@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Món quà dành cho Hương 💗</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  color: #773653;
+  background: linear-gradient(135deg, #ffe3ef, #f5dcff, #dff5ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 25px 15px;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+  padding: 28px 18px;
+  border-radius: 28px;
+  background: #ffffffbb;
+  box-shadow: 0 10px 40px #c75d9730;
+}
+
+h1 {
+  color: #e64f91;
+  font-size: clamp(28px, 7vw, 38px);
+  animation: glow 2s infinite alternate;
+}
+
+.subtitle { color: #9b6484; }
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #ff9bc7; }
+  to { text-shadow: 0 0 20px #ff69aa; }
+}
+
+/* Hộp quà */
+.gift-area {
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 800px;
+  margin: 10px 0;
+}
+
+.gift {
+  position: relative;
+  width: 170px;
+  height: 145px;
+  cursor: pointer;
+  animation: bounce 1.8s infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+.box {
+  position: absolute;
+  width: 170px;
+  height: 105px;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(120deg, #ff75a9, #ed3e85);
+  border-radius: 8px 8px 15px 15px;
+  box-shadow: 0 12px 20px #b9467840;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 100%;
+  left: 71px;
+  background: #ffe5a6;
+}
+
+.lid {
+  position: absolute;
+  width: 190px;
+  height: 35px;
+  left: -10px;
+  top: 35px;
+  border-radius: 8px;
+  background: linear-gradient(120deg, #ff9dc2, #f34c91);
+  z-index: 3;
+  transform-origin: 12% 100%;
+  transition: transform 0.9s cubic-bezier(.2,.8,.2,1);
+}
+
+.lid::before {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 100%;
+  left: 81px;
+  background: #ffe5a6;
+}
+
+.bow {
+  position: absolute;
+  z-index: 4;
+  left: 63px;
+  top: 5px;
+  width: 45px;
+  height: 35px;
+  border: 10px solid #ffe5a6;
+  border-radius: 50% 50% 10% 50%;
+  transform: rotate(-20deg);
+  transition: 0.7s;
+}
+
+.bow::after {
+  content: "";
+  position: absolute;
+  width: 45px;
+  height: 35px;
+  left: 18px;
+  top: -8px;
+  border: 10px solid #ffe5a6;
+  border-radius: 50% 50% 50% 10%;
+  transform: rotate(40deg);
+}
+
+.heart {
+  position: absolute;
+  z-index: 2;
+  font-size: 48px;
+  left: 62px;
+  top: 30px;
+  opacity: 0;
+  transition: 0.8s;
+}
+
+.open .lid {
+  transform: translateY(-75px) rotate(-25deg);
+}
+
+.open .bow {
+  transform: translateY(-75px) rotate(-25deg);
+  opacity: 0;
+}
+
+.open .heart {
+  opacity: 1;
+  transform: translateY(-95px) scale(1.5);
+}
+
+.open.gift { animation: none; }
+
+.hint {
+  font-size: 15px;
+  animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: .5; }
+}
+
+/* Lời tỏ tình */
+.letter {
+  display: none;
+  text-align: left;
+  background: #fff7fb;
+  border: 1px solid #ffd0e5;
+  border-radius: 20px;
+  padding: 22px;
+  line-height: 1.85;
+  animation: reveal 1s ease both;
+}
+
+.letter.show { display: block; }
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(25px) scale(.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.signature {
+  color: #e64f91;
+  font-weight: bold;
+  text-align: right;
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 13px 22px;
+  background: linear-gradient(100deg, #ff70a8, #c477ff);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 5px 18px #db69a455;
+  transition: transform .2s;
+}
+
+button:hover { transform: scale(1.04); }
+
+#hearts {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -40px;
+  font-size: 24px;
+  animation: fly 4s linear forwards;
+}
+
+@keyframes fly {
+  from { transform: translateY(0) rotate(0); opacity: 1; }
+  to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+.gallery {
+  display: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.gallery.show { display: grid; }
+
+.gallery img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 3px solid white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="hearts"></div>
+
+<main class="container">
+  <h1>Hương ơi, có quà cho cậu 🎁</h1>
+  <p class="subtitle">Mình có một điều nhỏ muốn nói...</p>
+
+  <div class="gift-area">
+    <div class="gift" id="gift" role="button"
+         tabindex="0" aria-label="Bấm để mở hộp quà">
+      <div class="heart">💖</div>
+      <div class="lid"></div>
+      <div class="bow"></div>
+      <div class="box"></div>
+    </div>
+  </div>
+
+  <p class="hint" id="hint">👆 Bấm vào hộp quà để mở nhé!</p>
+
+  <section class="letter" id="letter">
+    <h2 style="text-align:center;color:#e64f91">
+      💌 Gửi Hương
+    </h2>
+
+    <p>Hương à, mình đã muốn nói với cậu điều này từ lâu rồi.</p>
+
+    <p>Từ khi biết cậu, những điều bình thường cũng trở nên đặc biệt hơn. Mình thấy vui khi được trò chuyện với cậu và luôn mong cậu có thật nhiều niềm vui mỗi ngày.</p>
+
+    <p>Mình nhận ra rằng mình có tình cảm với cậu. Mình muốn được quan tâm, lắng nghe và cùng cậu tạo nên những kỷ niệm thật đẹp.</p>
+
+    <p>Mình không biết cậu có cảm giác giống mình không, nhưng mình muốn thành thật với trái tim mình. Nếu cậu đồng ý, mình mong chúng ta có thể tìm hiểu nhau nhiều hơn. Còn nếu cậu cần thời gian, mình vẫn tôn trọng cảm xúc của cậu nhé. 💗</p>
+
+    <p class="signature">Một người đang thích Hương 💕</p>
+
+    <div style="text-align:center">
+      <button id="replyButton">Hương đã đọc rồi 💗</button>
+      <p id="reply" style="display:none;text-align:center;color:#e64f91">
+        Cảm ơn cậu đã đọc món quà nhỏ này 🌷
+      </p>
+    </div>
+  </section>
+
+  <!-- Tùy chọn thêm ảnh: đặt ảnh cùng thư mục và đổi tên file bên dưới -->
+  <div class="gallery" id="gallery">
+    <img src="anh1.jpg" alt="Kỷ niệm 1">
+    <img src="anh2.jpg" alt="Kỷ niệm 2">
+    <img src="anh3.jpg" alt="Kỷ niệm 3">
+    <img src="anh4.jpg" alt="Kỷ niệm 4">
+  </div>
+
+  <p style="font-size:12px;color:#aa8299;margin-top:24px">
+    Được làm bằng sự chân thành 💗
+  </p>
+</main>
+
+<script>
+const gift = document.getElementById("gift");
+const letter = document.getElementById("letter");
+const hint = document.getElementById("hint");
+const hearts = document.getElementById("hearts");
+let opened = false;
+
+function makeHearts() {
+  const emojis = ["💗", "💕", "💖", "💘", "🌸"];
+  for (let i = 0; i < 22; i++) {
+    const heart = document.createElement("span");
+    heart.className = "floating-heart";
+    heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.animationDelay = Math.random() * 1.5 + "s";
+    heart.style.fontSize = (18 + Math.random() * 22) + "px";
+    hearts.appendChild(heart);
+    setTimeout(() => heart.remove(), 5500);
+  }
+}
+
+function openGift() {
+  if (opened) return;
+  opened = true;
+  gift.classList.add("open");
+  hint.textContent = "💝 Một lời nhắn dành riêng cho Hương...";
+  makeHearts();
+
+  setTimeout(() => {
+    letter.classList.add("show");
+    hint.textContent = "💗 Món quà của cậu đã mở!";
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth"
+    });
+  }, 900);
+}
+
+gift.addEventListener("click", openGift);
+gift.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openGift();
+  }
+});
+
+document.getElementById("replyButton").addEventListener("click", () => {
+  document.getElementById("reply").style.display = "block";
+  makeHearts();
+});
+</script>
+</body>
+</html>
